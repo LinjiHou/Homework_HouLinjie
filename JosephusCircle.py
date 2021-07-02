@@ -15,4 +15,5 @@ def solve_JCP_with_while(num, step=3, survive_num=1, starting_point=1):
 
 
 if __name__ == "__main__":
-    solve_JCP_with_while(90)
+    survive_people=solve_JCP_with_while(20, survive_num=2)
+    print('最终活下来的人是：', survive_people)

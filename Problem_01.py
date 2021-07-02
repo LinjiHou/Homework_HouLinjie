@@ -18,6 +18,6 @@ if __name__ == "__main__":
     L=[]
     for i in range(200):
         L.append(generate_key(16))
-    # print(L)
+    print(L)
 
 
