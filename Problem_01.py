@@ -5,7 +5,7 @@ import random
 import string
 
 base_str = string.ascii_letters + string.digits
-def generate_key(len):
+def generate_key(len=16):
     random_str = []
     for i in range(len):
         if (i % 5 == 0) & (i != 0) :            
@@ -17,7 +17,7 @@ def generate_key(len):
 if __name__ == "__main__":
     L=[]
     for i in range(200):
-        L.append(generate_key(16))
-    print(L)
+        L.append(generate_key())
+    # print(L)
 
 
