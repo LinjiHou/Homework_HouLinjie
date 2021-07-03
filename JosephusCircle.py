@@ -24,15 +24,17 @@ def solve_JCP_with_for(list_of_SNM, step, survive_num=1, starting_person=1):
         starting_point=out_point
     return remaining_SNM
 
-## 下面还在改
+## 为什么当 step 不等于3 的时候会报错
 def solve_JCP_with_recursion(list_of_SNM, step, survive_num=1, starting_person = 1 ):
     remaining_SNM = list_of_SNM
     starting_point = remaining_SNM.index(starting_person)
 
     if len(remaining_SNM) >  survive_num:
         out_point=(starting_point + step -1) % len(remaining_SNM)
-        print('出去的人是 %s 号' , remaining_SNM[out_point])    
+        print('出去的人是 %s 号' , remaining_SNM[out_point])
+          
         remaining_SNM.pop(out_point)
+        print('还剩下', remaining_SNM)  
         return solve_JCP_with_recursion(list_of_SNM = remaining_SNM,
                                         step = step,
                                         survive_num = survive_num,
@@ -43,7 +45,7 @@ def solve_JCP_with_recursion(list_of_SNM, step, survive_num=1, starting_person =
 
 if __name__ == "__main__":
     sum = 13 # 总人数
-    step = 3 # 数到step的人out
+    step = 4 # 数到step的人out
     starting_person = 1     # 从第starting_person个人开始报数
     survive_sum = 1     #最终剩下survive_sum个人
 
