@@ -5,7 +5,6 @@
 
 """
 
-""" 
 import pymysql
 import string
 import random
@@ -16,12 +15,13 @@ class MyDb():
         self.conn = None
 
     def connect( self ):
-        host = ("192.168.122.18")
-        user = ("root")
-        password = ("123qwe")
-        db = ("active") 
         # set parameters of MySQL
-        self.conn =  pymysql.connect(host, user, password, db)
+        self.conn =  pymysql.connect(
+            host= "192.168.122.18", 
+            port = 3306, 
+            user = "mysql_houlinjie", 
+            password= "123456", 
+            db="active")
 
     def cursor( self ):
         try:
@@ -81,85 +81,10 @@ if __name__ == '__main__':
     db.close()
 
 
-"""
 
-"""
-from random import choice
-import string
-import pymysql.cursors
 
-def get_code(dict, length, count):
-#根据给定字典，长度来得出激活码
-    for i in range(1,int(count)+1):
-        code = ""
-    #通过count限制激活码个数，循环调用choice来计算激活码
-        for j in range(0,int(length)):
-            code = code+str(choice(dict))
-        save_to_mysql(i, code)
 
-def save_to_mysql(id, code):
-# 将数据保存到mysql数据库200
 
-    #  设置数据库连接相关信息
-    connect = pymysql.connect(
-        host='localhost', 
-        port=3306,
-        user="root", 
-        password="123456", 
-        db="actcode"
-        )
-    cursor = connect.cursor()
-    #  链接数据库并设置游标
-    sql = "insert into activeCode(id, code) VALUES ('%d', '%s')"
-    data = (id, code)
-    cursor.execute(sql % data)
-    #执行sql语句
 
-if __name__ == "__main__":
-     dict = string.ascii_letters[:]
-     get_code(dict, length=16, count=200)
 
-"""
-import random
-import pymysql
-# import pymongo
-import string
-
-# 生成200个激活码
-def create_code():
-    code_list = list()
-    for j in range(0, 200):
-        code_num = ''
-
-        for i in range(0, 15):
-            n = random.choice(string.ascii_letters + '1234567890')
-            code_num += n
-
-        code_list.append(code_num)
-    return code_list
-
-code_list = create_code()
-
-# 存储到mysql
-
-conn = pymysql.connect(
-    host='localhost',
-    port=3306,
-    user='root',
-    passwd='root',
-    db='actcode'
-)
-cursor = conn.cursor()
-for code_num in code_list:
-    sql = 'INSERT INTO code(code_num) VALUES (\'{}\')'.format(code_num)
-    cursor.execute(sql)
-conn.commit()
-conn.close()
-
-# 存储到mongodb
-conn = pymongo.MongoClient('localhost', 27017)
-db = conn['test']
-code= db['code']
-for code_num in code_list:
-    db.code.insert({'code': code_num})
 
