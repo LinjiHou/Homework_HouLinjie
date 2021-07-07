@@ -55,7 +55,7 @@ def QueryData(conn):
     for row in rows:
         print(row)
 
-def gen_key(num, len=16, base_str = string.ascii_letters + string.digits):  # num 为生成多少个，len 每个的长度
+def gen_key(num, len=16, cc):  # num 为生成多少个，len 每个的长度
     result = []
     for i in range(num):  #控制生成多少个
         key_list = [random.choice(base_str) for i in range(len)]  #用列表生成式生成列表
