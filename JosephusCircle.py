@@ -1,18 +1,19 @@
-def solve_JCP_with_while(list_of_SNM, step=-1, survive_num=1, starting_person="person_name"):
-    """
-    'JCP' means josephus circle problem    对一个容器的一种遍历方式
-    'SNM' means sequence number of member ,  assert 检查参数 target_list
-    step 可以用 interval  , side effect"""
 
-    remaining_SNM = list_of_SNM.copy()
-    starting_point = remaining_SNM.index(starting_person) 
-    while len(remaining_SNM) > survive_num:
-        out_point=(starting_point + step - 1) % len(remaining_SNM)
-        print('出去的人是 %s 号', remaining_SNM[out_point])
-        remaining_SNM.pop(out_point)
-        starting_point=out_point
 
-    return remaining_SNM # 每一次踢人的顺序list
+def solve_JCP_with_while(players_list, step, survive_num=1, start_player="name"):
+
+    
+    remaining_players = players_list.copy()
+    start_point = players_list.index(start_player) 
+    out_order = []
+    while len(remaining_players) > survive_num:
+        out_point=(start_point + step - 1) % len(remaining_players)
+        out_order.append(remaining_players[out_point])
+        remaining_players.pop(out_point)
+        start_point = out_point
+    # out_order.append(remaining_players)
+
+    return out_order, remaining_players # 每一次踢人的顺序list
 
 
 
@@ -51,15 +52,14 @@ def solve_JCP_with_recursion(list_of_SNM, step, survive_num=1, starting_person =
         return remaining_SNM
 
 if __name__ == "__main__":
-    sum = 13 # 总人数
-    step = -1 # 数到step的人out
-    starting_person = 1     # 从第starting_person个人开始报数
-    survive_sum = 1     #最终剩下survive_sum个人
-
-    survive_people=solve_JCP_with_while(list_of_SNM = [(x+1) for x in range(sum)],
-                                            # step = step,
-                                            starting_person = starting_person,
-                                            survive_num = survive_sum
+    sum = 8 # 总人数
+    players_list = [(x+1) for x in range(sum)]
+    out_order, survivor = solve_JCP_with_while(
+                                            players_list = players_list,
+                                            step = 3,
+                                            start_player = 1,# 从name = start_person开始报数
                                             )
+    for out_player in out_order:
+        print('out ==> name:',out_player)
 
-    print('最终活下来的人是：', survive_people)
+    print('最终活下来的人是：', survivor)
